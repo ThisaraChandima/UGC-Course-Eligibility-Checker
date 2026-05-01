@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UGC A/L Course Eligibility Checker 2025/2026 — Sri Lanka</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--maroon:#7B1C1C;--gold:#C9922A;--gold-light:#F0C060;--cream:#FDF8F0;--ink:#1A1208;--muted:#8A7560;--border:#E8D9BC;--card:#FFFCF5;--green:#1B6B3A;--green-bg:#EEF7F2;--red:#9B2020;--red-bg:#FDF0F0;--amber:#B07000;--amber-bg:#FFF8E6;--blue:#1A4A7A;--blue-bg:#EDF3FA;--purple:#5A1A8A;--purple-bg:#F5EEFF;--shadow:0 2px 16px rgba(100,60,0,.10);--shadow-lg:0 8px 40px rgba(100,60,0,.15)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);font-family:'DM Sans',sans-serif;color:var(--ink);min-height:100vh}
+header{background:var(--maroon);overflow:hidden;position:relative}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.03) 40px,rgba(255,255,255,.03) 80px)}
+.header-inner{max-width:920px;margin:0 auto;padding:32px 24px 28px;position:relative}
+.header-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:4px 12px;border-radius:20px;font-size:11px;color:rgba(255,255,255,.85);letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(20px,5vw,32px);color:#fff;line-height:1.2;margin-bottom:8px}
+header h1 span{color:var(--gold-light)}
+header p{color:rgba(255,255,255,.72);font-size:13.5px;font-weight:300;max-width:520px;line-height:1.6}
+main{max-width:920px;margin:0 auto;padding:28px 24px 60px}
+.alert{background:var(--amber-bg);border:1px solid #E8C060;border-left:4px solid var(--gold);border-radius:8px;padding:14px 16px;font-size:13px;color:var(--amber);margin-bottom:24px;line-height:1.6;font-weight:500}
+.form-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow);margin-bottom:24px}
+.section-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--maroon);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.stream-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:9px;margin-bottom:0}
+.stream-btn{border:2px solid var(--border);background:#fff;padding:10px 12px;border-radius:10px;cursor:pointer;text-align:left;transition:all .18s;font-family:'DM Sans',sans-serif}
+.stream-btn:hover{border-color:var(--gold)}
+.stream-btn.active{border-color:var(--maroon);background:#FFF5F5}
+.stream-btn .sb-icon{font-size:18px;margin-bottom:5px;display:block}
+.stream-btn .sb-name{font-size:12.5px;font-weight:600;color:var(--ink);display:block}
+.stream-btn .sb-sub{font-size:10.5px;color:var(--muted);display:block;margin-top:2px;line-height:1.4}
+.subjects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.subject-item label{display:block;font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.req-tag{display:inline-block;background:var(--maroon);color:#fff;font-size:8.5px;padding:1px 5px;border-radius:4px;margin-left:4px;letter-spacing:0;text-transform:none;font-weight:500}
+.grade-select{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--ink);background:#fff;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238A7560'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;cursor:pointer;transition:border-color .15s}
+.grade-select:focus{outline:none;border-color:var(--maroon)}
+.grade-select.grade-A{border-color:#1B6B3A;background-color:#F0FBF5}
+.grade-select.grade-B{border-color:#1A4A7A;background-color:#EDF3FA}
+.grade-select.grade-C{border-color:#B07000;background-color:#FFF8E6}
+.grade-select.grade-S{border-color:#6B6B6B;background-color:#F5F5F5}
+.grade-select.grade-F{border-color:#9B2020;background-color:#FDF5F5}
+.grade-select.grade-X{border-color:#D0B080}
+.extras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:18px}
+.input-wrap label{display:block;font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.z-input{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--ink);background:#fff;transition:border-color .15s}
+.z-input:focus{outline:none;border-color:var(--maroon)}
+.z-hint{font-size:11px;color:var(--muted);margin-top:3px}
+.divider{height:1px;background:var(--border);margin:18px 0}
+.check-btn{width:100%;margin-top:20px;padding:14px;background:var(--maroon);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .18s;letter-spacing:.03em;display:flex;align-items:center;justify-content:center;gap:8px}
+.check-btn:hover{background:#6A1515;transform:translateY(-1px);box-shadow:0 4px 16px rgba(123,28,28,.35)}
+#results{display:none}
+#results.visible{display:block}
+.results-header{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.results-title{font-family:'Playfair Display',serif;font-size:21px;color:var(--maroon)}
+.results-summary{display:flex;gap:8px;flex-wrap:wrap}
+.rs-badge{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600}
+.rs-eligible{background:var(--green-bg);color:var(--green)}
+.rs-check{background:var(--amber-bg);color:var(--amber)}
+.rs-ineligible{background:var(--red-bg);color:var(--red)}
+.cgt-warn{background:var(--red-bg);border:1px solid #F0B0B0;border-left:4px solid var(--red);border-radius:8px;padding:14px 16px;font-size:13px;color:var(--red);margin-bottom:18px;line-height:1.6;font-weight:500;display:none}
+.cgt-warn.visible{display:block}
+.course-category{margin-bottom:24px}
+.cat-header{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.cat-icon{font-size:17px}
+.cat-name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.cat-line{flex:1;height:1px;background:var(--border)}
+.courses-list{display:flex;flex-direction:column;gap:8px}
+.course-card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;transition:box-shadow .15s}
+.course-card:hover{box-shadow:var(--shadow)}
+.course-card.eligible{border-color:#B8DFC8;background:#FAFFF8}
+.course-card.conditional{border-color:#E8D080;background:#FFFEF0}
+.course-card.ineligible{border-color:#E8D0C8;background:#FFF8F5;opacity:.65}
+.cc-name{font-size:14.5px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.cc-code{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);margin-bottom:5px}
+.cc-uni{font-size:11.5px;color:var(--muted);margin-bottom:7px}
+.cc-tags{display:flex;flex-wrap:wrap;gap:4px}
+.tag{font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:.04em;text-transform:uppercase}
+.tag-eng{background:#F0E6FF;color:#5A1A8A}
+.tag-comp{background:#E0EDFF;color:#1A3A7A}
+.tag-sci{background:#E6F7EC;color:#1B6B3A}
+.tag-med{background:#FFEAE6;color:#8A2010}
+.tag-biz{background:#FFF0D0;color:#6A4000}
+.tag-new{background:#FFE8CC;color:#8A3A00}
+.tag-hot{background:#FFE0E0;color:#7A1A1A}
+.tag-ok{background:#E0FFE8;color:#1A5A2A}
+.tag-arts{background:#F0E0FF;color:#4A1A6A}
+.tag-multi{background:#E0F0FF;color:#0A3A6A}
+.cc-status{display:flex;flex-direction:column;align-items:flex-end;gap:5px;min-width:90px}
+.status-pill{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:10px;white-space:nowrap;letter-spacing:.03em}
+.sp-eligible{background:var(--green-bg);color:var(--green)}
+.sp-conditional{background:var(--amber-bg);color:var(--amber)}
+.sp-ineligible{background:var(--red-bg);color:var(--red)}
+.cc-req{font-size:10.5px;color:var(--muted);text-align:right;line-height:1.5;max-width:160px}
+.cc-req.fail-reason{color:var(--red)}
+.cc-req.warn-reason{color:var(--amber)}
+.cc-spec{font-size:11px;color:var(--blue);margin-bottom:7px}
+.footer-note{margin-top:28px;padding:14px;background:var(--blue-bg);border:1px solid #C0D4EC;border-radius:8px;font-size:12px;color:var(--blue);line-height:1.6}
+.no-eligible{text-align:center;padding:36px 20px;color:var(--muted)}
+.no-eligible .no-icon{font-size:38px;margin-bottom:10px}
+.intake-badge{font-family:'DM Mono',monospace;font-size:10px;background:var(--border);padding:1px 6px;border-radius:4px;color:var(--muted)}
+@media(max-width:600px){.course-card{grid-template-columns:1fr}.cc-status{align-items:flex-start}.cc-req{text-align:left;max-width:100%}.header-inner{padding:22px 16px 18px}main{padding:18px 16px 48px}.form-card{padding:18px 14px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="header-badge">🎓 Academic Year 2025 / 2026 · UGC Sri Lanka</div>
+    <h1>A/L Course <span>Eligibility</span> Checker</h1>
+    <p>Select your stream, enter your G.C.E. (A/L) results and Z-score to see every university degree programme you qualify for — based on the official UGC Handbook.</p>
+  </div>
+</header>
+
+<main>
+  <div class="alert">⚠️ <strong>Common General Test (CGT):</strong> A minimum 30% score is required to <em>register</em> at university. If absent or failed, you can still be <em>selected</em> by Z-score and re-sit the CGT within 3 attempts. Apply for all eligible courses regardless.</div>
+
+  <!-- STEP 1: STREAM -->
+  <div class="form-card">
+    <div class="section-title">Step 1 — Select Your A/L Subject Stream</div>
+    <div class="stream-grid" id="streamGrid">
+      <button class="stream-btn active" data-stream="PS" onclick="selectStream(this)">
+        <span class="sb-icon">⚗️</span><span class="sb-name">Physical Science</span><span class="sb-sub">Physics · Chemistry · Combined Maths</span>
+      </button>
+      <button class="stream-btn" data-stream="BS" onclick="selectStream(this)">
+        <span class="sb-icon">🧬</span><span class="sb-name">Biological Science</span><span class="sb-sub">Biology · Chemistry · Physics</span>
+      </button>
+      <button class="stream-btn" data-stream="COM" onclick="selectStream(this)">
+        <span class="sb-icon">💼</span><span class="sb-name">Commerce</span><span class="sb-sub">Accounting · Economics · Business</span>
+      </button>
+      <button class="stream-btn" data-stream="ARTS" onclick="selectStream(this)">
+        <span class="sb-icon">📚</span><span class="sb-name">Arts</span><span class="sb-sub">Social Sciences · Languages · Aesthetics</span>
+      </button>
+      <button class="stream-btn" data-stream="ET" onclick="selectStream(this)">
+        <span class="sb-icon">🔧</span><span class="sb-name">Engineering Technology</span><span class="sb-sub">ET · SFT · 3rd Subject</span>
+      </button>
+      <button class="stream-btn" data-stream="BST" onclick="selectStream(this)">
+        <span class="sb-icon">🌱</span><span class="sb-name">Biosystems Technology</span><span class="sb-sub">BST · SFT · 3rd Subject</span>
+      </button>
+      <button class="stream-btn" data-stream="ICT" onclick="selectStream(this)">
+        <span class="sb-icon">💻</span><span class="sb-name">ICT Stream</span><span class="sb-sub">ICT · SFT · ET or BST</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 2: SUBJECTS -->
+  <div class="form-card">
+    <div class="section-title">Step 2 — Enter Your A/L Results</div>
+    <div id="subjectsContainer"></div>
+    <div class="divider"></div>
+    <div class="extras-grid">
+      <div class="input-wrap">
+        <label>Z-Score</label>
+        <input type="number" class="z-input" id="zScore" placeholder="e.g. 1.4520" step="0.0001" min="-3" max="4">
+        <div class="z-hint">Enter your Z-score (e.g. 0.1130)</div>
+      </div>
+      <div class="input-wrap">
+        <label>Common General Test</label>
+        <select class="grade-select" id="cgtResult">
+          <option value="pass">Pass (30%+)</option>
+          <option value="fail">Fail (below 30%)</option>
+          <option value="absent" selected>Absent</option>
+          <option value="unknown">Unknown</option>
+        </select>
+      </div>
+      <div class="input-wrap">
+        <label>O/L English Grade</label>
+        <select class="grade-select" id="olEnglish">
+          <option value="credit">Credit (A/B/C)</option>
+          <option value="pass">Pass (S)</option>
+          <option value="fail">Fail / Absent</option>
+          <option value="unknown">Unknown</option>
+        </select>
+      </div>
+      <div class="input-wrap">
+        <label>O/L Mathematics</label>
+        <select class="grade-select" id="olMaths">
+          <option value="B">Very Good (B)</option>
+          <option value="credit">Credit (C)</option>
+          <option value="pass">Pass (S)</option>
+          <option value="fail">Fail / Absent</option>
+          <option value="unknown">Unknown</option>
+        </select>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkEligibility()">🔍 Check My Eligible Courses</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+    <div class="results-header">
+      <div class="results-title">Your Eligible Courses</div>
+      <div class="results-summary" id="resultsSummary"></div>
+    </div>
+    <div class="cgt-warn" id="cgtWarning">⚠️ <strong>CGT Absent/Failed:</strong> You can still be <em>selected</em> based on Z-score, but must re-sit and pass the CGT (30%+) before you can register. A passing attempt within 3 sittings is accepted.</div>
+    <div id="coursesOutput"></div>
+    <div class="footer-note">📌 <strong>Source: UGC Handbook 2025/2026.</strong> Actual admission depends on Z-score cut-offs and district quota. The UGC strongly advises applying for the <strong>maximum number of eligible courses</strong>. Always verify requirements with the official UGC handbook before applying.</div>
+  </div>
+</main>
+
+<script>
+// ── GRADE RANKS ──
+const GR = {A:5,B:4,C:3,S:2,F:1,X:0};
+const mg = (g,r) => (GR[g]||0) >= (GR[r]||0);
+
+// ── STREAM SUBJECT DEFINITIONS ──
+const STREAM_SUBS = {
+  PS:[
+    {id:'physics',label:'Physics',req:true},
+    {id:'chemistry',label:'Chemistry',req:true},
+    {id:'combined_maths',label:'Combined Mathematics',req:true},
+    {id:'higher_maths',label:'Higher Mathematics',req:false},
+    {id:'ict',label:'ICT (Information & Communication Technology)',req:false},
+  ],
+  BS:[
+    {id:'biology',label:'Biology',req:true},
+    {id:'chemistry',label:'Chemistry',req:true},
+    {id:'physics',label:'Physics',req:true},
+    {id:'agri_science',label:'Agricultural Science',req:false},
+    {id:'combined_maths',label:'Combined / Higher Mathematics',req:false},
+  ],
+  COM:[
+    {id:'business_studies',label:'Business Studies',req:true},
+    {id:'economics',label:'Economics',req:true},
+    {id:'accounting',label:'Accounting',req:true},
+    {id:'business_statistics',label:'Business Statistics',req:false},
+    {id:'ict',label:'ICT',req:false},
+  ],
+  ARTS:[
+    {id:'arts_s1',label:'First Arts Subject',req:true},
+    {id:'arts_s2',label:'Second Arts Subject',req:true},
+    {id:'arts_s3',label:'Third Arts Subject',req:true},
+  ],
+  ET:[
+    {id:'et',label:'Engineering Technology (ET)',req:true},
+    {id:'sft',label:'Science for Technology (SFT)',req:true},
+    {id:'et_third',label:'Third Subject (Economics / ICT / English / Maths etc.)',req:true},
+  ],
+  BST:[
+    {id:'bst',label:'Biosystems Technology (BST)',req:true},
+    {id:'sft',label:'Science for Technology (SFT)',req:true},
+    {id:'bst_third',label:'Third Subject (Economics / ICT / English / Maths etc.)',req:true},
+  ],
+  ICT:[
+    {id:'ict_al',label:'Information & Communication Technology (ICT)',req:true},
+    {id:'sft',label:'Science for Technology (SFT)',req:true},
+    {id:'et_or_bst',label:'ET or BST (third subject)',req:true},
+  ],
+};
+
+let currentStream = 'PS';
+
+function selectStream(btn){
+  document.querySelectorAll('.stream-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentStream = btn.dataset.stream;
+  renderSubjects();
+  document.getElementById('results').classList.remove('visible');
+}
+
+function renderSubjects(){
+  const subs = STREAM_SUBS[currentStream];
+  document.getElementById('subjectsContainer').innerHTML =
+    `<div class="subjects-grid">${subs.map(s=>`
+      <div class="subject-item">
+        <label>${s.label}${s.req?'<span class="req-tag">Required</span>':''}</label>
+        <select class="grade-select grade-X" id="grade_${s.id}" onchange="updateGradeColor(this)">
+          <option value="X">— Not taken</option>
+          <option value="A">A — Distinguished</option>
+          <option value="B">B — Very Good</option>
+          <option value="C">C — Good (Credit)</option>
+          <option value="S">S — Simple Pass</option>
+          <option value="F">F — Fail</option>
+        </select>
+      </div>`).join('')}
+    </div>`;
+}
+
+function updateGradeColor(sel){
+  sel.className = 'grade-select grade-'+sel.value;
+}
+
+// ── GRADE HELPER ──
+function g(id){ const e=document.getElementById('grade_'+id); return e?e.value:'X'; }
+
+// ── COURSE DATABASE (complete) ──
+// check(grades, olEng, olMaths) returns {ok: true/false/'conditional', reason:'...'}
+const COURSES = [
+
+// ══════════════════════════════════════════════
+// (1) ARTS STREAM
+// ══════════════════════════════════════════════
+{name:'Arts',code:'019',intake:6983,universities:'Colombo · Peradeniya · Jayewardenepura · Kelaniya · Ruhuna · Jaffna · Eastern · SEUSL · Rajarata',
+ tags:['arts'],streams:['ARTS'],
+ check(g){const s1=mg(g.arts_s1,'S'),s2=mg(g.arts_s2,'S'),s3=mg(g.arts_s3,'S');
+  if(!s1||!s2||!s3)return{ok:false,reason:'Need S in all 3 Arts subjects'};return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Arts (SP) — Sripalee Campus (Mass Media / Performing Arts)',code:'020/041',intake:220,universities:'Sripalee Campus, University of Colombo',
+ tags:['arts'],streams:['ARTS'],
+ check(g,olEng){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S')||!mg(g.arts_s3,'S'))return{ok:false,reason:'Need S in 3 Arts subjects'};
+  if(olEng==='fail')return{ok:false,reason:'Need O/L English S pass'};
+  return{ok:'conditional',reason:'S in 3 subjects ✓ — must also pass Aptitude Test by Sripalee Campus'}}},
+{name:'Arts (SAB)',code:'SAB',intake:null,universities:'Sabaragamuwa University of Sri Lanka',
+ tags:['arts'],streams:['ARTS'],
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S')||!mg(g.arts_s3,'S'))return{ok:false,reason:'Need S in 3 Arts subjects'};return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Communication Studies',code:null,intake:null,universities:'Trincomalee Campus, Eastern University',
+ tags:['arts'],streams:['ARTS'],
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Peace and Conflict Resolution',code:null,intake:null,universities:'University of Kelaniya',
+ tags:['arts'],streams:['ARTS'],
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Islamic Studies',code:null,intake:null,universities:'South Eastern University of Sri Lanka',
+ tags:['arts'],streams:['ARTS'],
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Arabic Language',code:null,intake:null,universities:'South Eastern University of Sri Lanka',
+ tags:['arts'],streams:['ARTS'],
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Teaching English as a Second Language (TESL)',code:null,intake:null,universities:'Kelaniya · Jayewardenepura · Sabaragamuwa',
+ tags:['arts'],streams:['ARTS'],
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Social Work',code:null,intake:null,universities:'Peradeniya · Jayewardenepura',
+ tags:['arts'],streams:['ARTS'],
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Arts — Information Technology',code:null,intake:null,universities:'University of Sri Jayewardenepura',
+ tags:['arts','comp'],streams:['ARTS'],
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Music',code:null,intake:null,universities:'Jayewardenepura · Jaffna · University of Visual & Performing Arts · Swamy Vipulananda Institute',
+ tags:['arts'],streams:['ARTS'],note:'District quota selection',
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:'conditional',reason:'S in subjects ✓ — district quota applies'}}},
+{name:'Dance',code:null,intake:null,universities:'Jaffna · University of Visual & Performing Arts · Swamy Vipulananda Institute',
+ tags:['arts'],streams:['ARTS'],note:'District quota selection',
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:'conditional',reason:'S in subjects ✓ — district quota applies'}}},
+{name:'Drama & Theatre',code:null,intake:null,universities:'University of Visual & Performing Arts · Swamy Vipulananda Institute',
+ tags:['arts'],streams:['ARTS'],note:'District quota selection',
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:'conditional',reason:'S in subjects ✓ — district quota applies'}}},
+{name:'Visual Arts',code:null,intake:null,universities:'University of the Visual & Performing Arts',
+ tags:['arts'],streams:['ARTS'],
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Art & Design',code:null,intake:null,universities:'University of Jaffna',
+ tags:['arts'],streams:['ARTS'],
+ check(g){if(!mg(g.arts_s1,'S')||!mg(g.arts_s2,'S'))return{ok:false,reason:'Need S in Arts subjects'};return{ok:true,reason:'Meets requirement ✓'}}},
+
+// ══════════════════════════════════════════════
+// (2) COMMERCE STREAM
+// ══════════════════════════════════════════════
+{name:'Management',code:'016',intake:5474,universities:'Colombo · Peradeniya · Jayewardenepura · Kelaniya · Jaffna · Ruhuna · Eastern · SEUSL · Rajarata · Sabaragamuwa · Wayamba',
+ tags:['biz'],streams:['COM'],
+ check(g){const core=[mg(g.business_studies,'S'),mg(g.economics,'S'),mg(g.accounting,'S')].filter(Boolean).length;
+  if(core>=3)return{ok:true,reason:'S in all 3 core Commerce subjects ✓'};
+  if(core>=2&&(mg(g.business_statistics,'S')||mg(g.ict,'S')))return{ok:true,reason:'2 core subjects + 3rd ✓'};
+  return{ok:false,reason:`Need S in 3 Commerce subjects (have ${core} core subjects with S)`}}},
+{name:'Management and Public Policy',code:'028',intake:100,universities:'University of Sri Jayewardenepura',
+ tags:['biz'],streams:['COM'],
+ check(g){const core=[mg(g.business_studies,'S'),mg(g.economics,'S'),mg(g.accounting,'S')].filter(Boolean).length;
+  if(core>=2)return{ok:true,reason:'Meets Commerce requirement ✓'};return{ok:false,reason:'Need S in Commerce subjects'}}},
+{name:'Real Estate Management and Valuation',code:'017',intake:70,universities:'University of Sri Jayewardenepura',
+ tags:['biz'],streams:['COM'],
+ check(g){const core=[mg(g.business_studies,'S'),mg(g.economics,'S'),mg(g.accounting,'S')].filter(Boolean).length;
+  if(core>=2)return{ok:true,reason:'Meets Commerce requirement ✓'};return{ok:false,reason:'Need S in Commerce subjects'}}},
+{name:'Commerce',code:'018',intake:884,universities:'Jayewardenepura · Kelaniya · Jaffna · Eastern · SEUSL',
+ tags:['biz'],streams:['COM'],
+ check(g){const core=[mg(g.business_studies,'S'),mg(g.economics,'S'),mg(g.accounting,'S')].filter(Boolean).length;
+  if(core>=3)return{ok:true,reason:'S in all 3 core subjects ✓'};
+  if(core>=2&&(mg(g.business_statistics,'S')||mg(g.ict,'S')))return{ok:true,reason:'2 core + 3rd ✓'};
+  return{ok:false,reason:'Need S in 3 Commerce subjects'}}},
+{name:'Business Information Systems (BIS) Honours',code:'BIS',intake:null,universities:'University of Sri Jayewardenepura',
+ tags:['biz','comp'],streams:['COM'],
+ check(g){const core=[mg(g.business_studies,'S'),mg(g.economics,'S'),mg(g.accounting,'S')].filter(Boolean).length;
+  if(core>=2)return{ok:true,reason:'Meets Commerce requirement ✓'};return{ok:false,reason:'Need S in Commerce subjects'}}},
+{name:'Accounting Information Systems',code:null,intake:null,universities:'University of Kelaniya',
+ tags:['biz','comp'],streams:['COM'],
+ check(g){if(!mg(g.accounting,'S'))return{ok:false,reason:'Accounting (S) required for this course'};return{ok:true,reason:'Accounting S ✓'}}},
+{name:'Banking and Insurance',code:null,intake:null,universities:'University of Vavuniya, Sri Lanka',
+ tags:['biz'],streams:['COM'],
+ check(g){const core=[mg(g.business_studies,'S'),mg(g.economics,'S'),mg(g.accounting,'S')].filter(Boolean).length;
+  if(core>=2)return{ok:true,reason:'Meets Commerce requirement ✓'};return{ok:false,reason:'Need S in Commerce subjects'}}},
+{name:'Management Studies (TV)',code:'022',intake:462,universities:'University of Vavuniya · Trincomalee Campus, Eastern University',
+ tags:['biz'],streams:['COM','PS','BS','ARTS','ET','BST','ICT'],note:'Open to all streams',
+ check(g){return{ok:true,reason:'Open to all A/L streams with minimum passes ✓'}}},
+
+// ══════════════════════════════════════════════
+// (3) BIOLOGICAL SCIENCE STREAM
+// ══════════════════════════════════════════════
+{name:'Medicine (MBBS)',code:'001',intake:2095,universities:'Colombo · Peradeniya · Jayewardenepura · Kelaniya · Jaffna · Ruhuna · Eastern · Rajarata · Wayamba · Sabaragamuwa · Moratuwa · Uva Wellassa',
+ tags:['med','hot'],streams:['BS'],
+ check(g){const grades=[g.biology,g.chemistry,g.physics].map(x=>GR[x]||0).sort((a,b)=>b-a);
+  if(grades[0]<3||grades[1]<3||grades[2]<2)return{ok:false,reason:'Need 2 × C and 1 × S in Biology, Chemistry, Physics'};
+  return{ok:true,reason:'2C + 1S in Bio/Chem/Physics ✓'}}},
+{name:'Dental Surgery (BDS)',code:'002',intake:130,universities:'Peradeniya · Jayewardenepura',
+ tags:['med','hot'],streams:['BS'],
+ check(g){if(!mg(g.biology,'S')||!mg(g.chemistry,'S')||!mg(g.physics,'S'))return{ok:false,reason:'Need S in Chemistry, Physics and Biology'};return{ok:true,reason:'S in all 3 ✓'}}},
+{name:'Veterinary Science (BVSc)',code:'003',intake:110,universities:'University of Peradeniya',
+ tags:['med','hot'],streams:['BS'],
+ check(g){if(!mg(g.biology,'S')||!mg(g.chemistry,'S')||!mg(g.physics,'S'))return{ok:false,reason:'Need S in Chemistry, Physics and Biology'};return{ok:true,reason:'S in all 3 ✓'}}},
+{name:'Agricultural Technology & Management',code:'039',intake:221,universities:'University of Peradeniya',
+ tags:['sci'],streams:['BS'],
+ check(g){const c1=mg(g.chemistry,'S')&&mg(g.physics,'S')&&mg(g.biology,'S');
+  const c2=mg(g.chemistry,'S')&&(mg(g.physics,'S')||mg(g.combined_maths,'S'))&&(mg(g.biology,'S')||mg(g.agri_science,'S'));
+  const c3=mg(g.chemistry,'S')&&mg(g.biology,'S')&&(mg(g.agri_science,'S')||mg(g.combined_maths,'S'));
+  if(c1||c2||c3)return{ok:true,reason:'Meets subject combination requirement ✓'};return{ok:false,reason:'Need S in Chemistry + Biology + Physics/Maths/Agri combo'}}},
+{name:'Agriculture',code:'004',intake:820,universities:'Sabaragamuwa · Eastern · Jaffna · Rajarata · Wayamba',
+ tags:['sci'],streams:['BS'],
+ check(g){const c1=mg(g.chemistry,'S')&&mg(g.physics,'S')&&mg(g.biology,'S');
+  const c2=mg(g.chemistry,'S')&&(mg(g.physics,'S')||mg(g.combined_maths,'S'))&&(mg(g.biology,'S')||mg(g.agri_science,'S'));
+  const c3=mg(g.chemistry,'S')&&mg(g.biology,'S')&&(mg(g.agri_science,'S')||mg(g.combined_maths,'S'));
+  if(c1||c2||c3)return{ok:true,reason:'Meets subject combination requirement ✓'};return{ok:false,reason:'Need S in Chemistry + Biology + Physics/Maths/Agri'}}},
+{name:'Agricultural Resource Management & Technology',code:'093',intake:181,universities:'University of Ruhuna',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.chemistry,'S')&&mg(g.biology,'S')&&(mg(g.physics,'S')||mg(g.agri_science,'S')||mg(g.combined_maths,'S'));
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Chemistry, Biology + Physics/Agri/Maths'}}},
+{name:'Agribusiness Management',code:'094',intake:78,universities:'University of Ruhuna',
+ tags:['sci','biz'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S')&&(mg(g.physics,'S')||mg(g.agri_science,'S'));
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology, Chemistry + Physics or Agri Science'}}},
+{name:'Green Technology',code:null,intake:null,universities:'University of Ruhuna',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.chemistry,'S')&&(mg(g.biology,'S')||mg(g.physics,'S'));
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Chemistry + Biology or Physics'}}},
+{name:'Food Science & Nutrition',code:null,intake:null,universities:'Wayamba University of Sri Lanka',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.chemistry,'S')&&mg(g.biology,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Chemistry and Biology'}}},
+{name:'Food Science & Technology',code:null,intake:null,universities:'Peradeniya · Jayewardenepura · Sabaragamuwa',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.chemistry,'S')&&mg(g.biology,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Chemistry and Biology'}}},
+{name:'Ayurveda Medicine and Surgery (BAMS)',code:null,intake:null,universities:'University of Colombo · Gampaha Wickramarachchi University',
+ tags:['med'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Unani Medicine and Surgery',code:null,intake:null,universities:'University of Colombo',
+ tags:['med'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Siddha Medicine and Surgery',code:null,intake:null,universities:'Jaffna · Trincomalee Campus, Eastern University',
+ tags:['med'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Biological Science',code:'014',intake:null,universities:'Colombo · Peradeniya · Jayewardenepura · Kelaniya · Jaffna · Ruhuna · Eastern · SEUSL',
+ tags:['sci','ok'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S')&&(mg(g.physics,'S')||mg(g.agri_science,'S')||mg(g.combined_maths,'S'));
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology, Chemistry + 3rd subject'}}},
+{name:'Applied Sciences (Biological Science)',code:'015',intake:null,universities:'Rajarata · Sabaragamuwa · Vavuniya',
+ tags:['sci','ok'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S')&&(mg(g.physics,'S')||mg(g.agri_science,'S')||mg(g.combined_maths,'S'));
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology, Chemistry + 3rd subject'}}},
+{name:'Health Promotion',code:'050',intake:103,universities:'Rajarata University of Sri Lanka',
+ tags:['med'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S')&&(mg(g.agri_science,'S')||mg(g.combined_maths,'S')||mg(g.physics,'S'));
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology, Chemistry + Agri/Maths/Physics'}}},
+{name:'Nursing',code:'037',intake:573,universities:'Peradeniya · Jayewardenepura · Ruhuna · Jaffna · Eastern · Colombo',
+ tags:['med'],streams:['BS'],
+ check(g,olEng){if(!mg(g.biology,'S')||!mg(g.chemistry,'S')||!mg(g.physics,'S'))return{ok:false,reason:'Need S in Chemistry, Physics and Biology'};
+  if(olEng==='fail')return{ok:false,reason:'Need O/L English S pass'};
+  if(olEng==='unknown')return{ok:'conditional',reason:'S in 3 subjects ✓ — verify O/L English S pass'};
+  return{ok:true,reason:'S in all 3 + O/L English ✓'}}},
+{name:'Pharmacy',code:'051',intake:239,universities:'Peradeniya · Jayewardenepura · Jaffna · Ruhuna',
+ tags:['med'],streams:['BS'],
+ check(g,olEng){if(!mg(g.chemistry,'C'))return{ok:false,reason:'Need at least C in Chemistry'};
+  if(!mg(g.biology,'S')||!mg(g.physics,'S'))return{ok:false,reason:'Need S in Physics and Biology'};
+  if(olEng==='fail')return{ok:false,reason:'Need O/L English S pass'};
+  if(olEng==='unknown')return{ok:'conditional',reason:'C in Chemistry + S in Physics, Biology ✓ — verify O/L English'};
+  return{ok:true,reason:'C Chemistry + S Physics, Biology + O/L English ✓'}}},
+{name:'Medical Laboratory Sciences',code:'052',intake:226,universities:'Peradeniya · Jayewardenepura · Ruhuna · Jaffna',
+ tags:['med'],streams:['BS'],
+ check(g,olEng){if(!mg(g.biology,'S')||!mg(g.chemistry,'S')||!mg(g.physics,'S'))return{ok:false,reason:'Need S in Chem, Physics, Biology'};
+  if(olEng==='fail')return{ok:false,reason:'Need O/L English S pass'};
+  if(olEng==='unknown')return{ok:'conditional',reason:'S in 3 ✓ — verify O/L English S'};
+  return{ok:true,reason:'S in all 3 + O/L English ✓'}}},
+{name:'Radiography',code:'053',intake:68,universities:'University of Peradeniya',
+ tags:['med'],streams:['BS'],
+ check(g,olEng){if(!mg(g.biology,'S')||!mg(g.chemistry,'S')||!mg(g.physics,'S'))return{ok:false,reason:'Need S in Chem, Physics, Biology'};
+  if(olEng==='fail')return{ok:false,reason:'Need O/L English S pass'};
+  if(olEng==='unknown')return{ok:'conditional',reason:'S in 3 ✓ — verify O/L English S'};
+  return{ok:true,reason:'S in all 3 + O/L English ✓'}}},
+{name:'Physiotherapy',code:'054',intake:111,universities:'University of Colombo · University of Peradeniya',
+ tags:['med'],streams:['BS'],
+ check(g,olEng){if(!mg(g.chemistry,'S')||!mg(g.physics,'S'))return{ok:false,reason:'Need S in Physics and Chemistry'};
+  const third=mg(g.biology,'S')||mg(g.combined_maths,'S');
+  if(!third)return{ok:false,reason:'Need 3rd subject S: Biology or Combined/Higher Mathematics'};
+  if(olEng==='fail')return{ok:false,reason:'Need O/L English S pass'};
+  if(olEng==='unknown')return{ok:'conditional',reason:'S in Physics, Chemistry + 3rd ✓ — verify O/L English'};
+  return{ok:true,reason:'S in Physics, Chemistry + 3rd + O/L English ✓'}}},
+{name:'Biochemistry & Molecular Biology',code:null,intake:null,universities:'University of Colombo',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S')&&mg(g.physics,'S');
+  return ok?{ok:true,reason:'S in all 3 ✓'}:{ok:false,reason:'Need S in Biology, Chemistry and Physics'}}},
+{name:'Fisheries & Marine Sciences',code:null,intake:null,universities:'University of Ruhuna',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Environmental Conservation & Management',code:null,intake:null,universities:'University of Kelaniya',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Animal Science & Fisheries',code:null,intake:null,universities:'University of Peradeniya',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Food Production & Technology Management',code:null,intake:null,universities:'Wayamba University of Sri Lanka',
+ tags:['sci','biz'],streams:['BS'],
+ check(g){const ok=mg(g.chemistry,'S')&&mg(g.biology,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Chemistry and Biology'}}},
+{name:'Animal Production and Food Technology',code:null,intake:null,universities:'Uva Wellassa University',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Export Agriculture',code:null,intake:null,universities:'Uva Wellassa University',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&(mg(g.chemistry,'S')||mg(g.agri_science,'S'));
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology + Chemistry or Agri Science'}}},
+{name:'Aquatic Resources Technology',code:null,intake:null,universities:'Uva Wellassa University',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Occupational Therapy',code:null,intake:null,universities:'University of Kelaniya',
+ tags:['med'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Optometry',code:null,intake:null,universities:'University of Sri Jayewardenepura',
+ tags:['med'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S')&&mg(g.physics,'S');
+  return ok?{ok:true,reason:'S in all 3 ✓'}:{ok:false,reason:'Need S in Biology, Chemistry and Physics'}}},
+{name:'Applied Chemistry',code:null,intake:null,universities:'University of Kelaniya',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.chemistry,'S')&&(mg(g.biology,'S')||mg(g.physics,'S'));
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Chemistry + Biology or Physics'}}},
+{name:'Aquatic Bioresources',code:null,intake:null,universities:'University of Sri Jayewardenepura',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Urban Bioresources',code:null,intake:null,universities:'University of Sri Jayewardenepura',
+ tags:['sci'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Medical Imaging Technology',code:'138',intake:50,universities:'University of Colombo',
+ tags:['med'],streams:['BS'],
+ check(g){const ok=mg(g.physics,'S')&&mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'S in all 3 ✓'}:{ok:false,reason:'Need S in Physics, Biology and Chemistry'}}},
+{name:'Speech and Hearing Sciences',code:null,intake:null,universities:'University of Kelaniya',
+ tags:['med'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+
+// ══════════════════════════════════════════════
+// (4) PHYSICAL SCIENCE STREAM
+// ══════════════════════════════════════════════
+{name:'Engineering',code:'008',intake:2238,universities:'Peradeniya · Moratuwa · Ruhuna · Jaffna · SEUSL · Jayewardenepura',
+ tags:['eng','hot'],streams:['PS'],
+ spec:'Civil · Electrical & Electronic · Mechanical · Computer · Chemical · Manufacturing (varies by university)',
+ check(g){const p=mg(g.physics,'S'),c=mg(g.chemistry,'S'),m=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  if(!p||!c||!m)return{ok:false,reason:`Need S: Physics${!p?' ❌':' ✓'}, Chemistry${!c?' ❌':' ✓'}, Combined Maths${!m?' ❌':' ✓'}`};
+  return{ok:true,reason:'S in Physics, Chemistry & Combined Maths ✓'}}},
+{name:'Engineering (EM) — Earth Resources Engineering',code:'009',intake:80,universities:'University of Moratuwa',
+ tags:['eng'],streams:['PS'],
+ check(g){const p=mg(g.physics,'S'),c=mg(g.chemistry,'S'),m=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  if(!p||!c||!m)return{ok:false,reason:'Need S in Physics, Chemistry, Combined Maths'};return{ok:true,reason:'S in all 3 ✓'}}},
+{name:'Engineering (TM) — Textile & Apparel Engineering',code:'010',intake:98,universities:'University of Moratuwa',
+ tags:['eng'],streams:['PS'],
+ check(g){const p=mg(g.physics,'S'),c=mg(g.chemistry,'S'),m=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  if(!p||!c||!m)return{ok:false,reason:'Need S in Physics, Chemistry, Combined Maths'};return{ok:true,reason:'S in all 3 ✓'}}},
+{name:'Transport Management & Logistics Engineering (TMLE)',code:'057',intake:91,universities:'University of Moratuwa',
+ tags:['eng'],streams:['PS'],
+ check(g){const p=mg(g.physics,'S'),c=mg(g.chemistry,'S'),m=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  if(!p||!c||!m)return{ok:false,reason:'Need S in Physics, Chemistry, Combined Maths'};return{ok:true,reason:'S in all 3 ✓'}}},
+{name:'Electronic and Intelligent Systems Engineering',code:'143',intake:50,universities:'University of Peradeniya',
+ tags:['eng','new'],streams:['PS'],note:'🆕 New — closest to Mechatronics / Robotics',
+ check(g){const p=mg(g.physics,'S'),c=mg(g.chemistry,'S'),m=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  if(!p||!c||!m)return{ok:false,reason:'Need S in Combined Maths, Physics, Chemistry'};return{ok:true,reason:'S in all 3 ✓'}}},
+{name:'Physical Science',code:'013',intake:2312,universities:'Colombo · Peradeniya · Jayewardenepura · Kelaniya · Jaffna · Ruhuna · Eastern · SEUSL',
+ tags:['sci','ok'],streams:['PS'],
+ check(g){const hasMath=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  const hasSci=mg(g.chemistry,'S')||mg(g.physics,'S');
+  const list=['combined_maths','higher_maths','biology','physics','chemistry','ict'].filter(s=>mg(g[s],'S'));
+  if(!hasMath)return{ok:false,reason:'Need S in Combined or Higher Mathematics'};
+  if(!hasSci)return{ok:false,reason:'Need S in Chemistry or Physics'};
+  if(list.length<3)return{ok:false,reason:`Need S in 3 subjects from approved list (have ${list.length})`};
+  return{ok:true,reason:'Meets all requirements ✓'}}},
+{name:'Computer Science',code:'012',intake:716,universities:'UCSC · Kelaniya · Jaffna · Ruhuna · Eastern · Jayewardenepura',
+ tags:['comp','ok'],streams:['PS'],
+ check(g){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C');
+  const list=['combined_maths','higher_maths','physics','chemistry','ict'].filter(s=>mg(g[s],'S'));
+  if(!hasC)return{ok:false,reason:'Need at least C in Combined Maths or Physics'};
+  if(list.length<2)return{ok:false,reason:`Need S in 2 more subjects from list (have ${list.length})`};
+  return{ok:true,reason:'Meets all requirements ✓'}}},
+{name:'Applied Sciences (Physical Science)',code:'015',intake:778,universities:'Rajarata · Sabaragamuwa · Wayamba · Vavuniya · Eastern',
+ tags:['sci','ok'],streams:['PS'],
+ check(g){const hasMath=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  const hasSci=mg(g.chemistry,'S')||mg(g.physics,'S');
+  const list=['combined_maths','higher_maths','biology','physics','chemistry','ict','agri_science'].filter(s=>mg(g[s],'S'));
+  if(!hasMath)return{ok:false,reason:'Need S in Combined or Higher Mathematics'};
+  if(!hasSci)return{ok:false,reason:'Need S in Chemistry or Physics'};
+  if(list.length<3)return{ok:false,reason:`Need S in 3 subjects (have ${list.length})`};
+  return{ok:true,reason:'Meets all requirements ✓'}}},
+{name:'Industrial Statistics & Mathematical Finance',code:'072',intake:null,universities:'University of Colombo',
+ tags:['sci'],streams:['PS'],
+ check(g){const ok=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  return ok?{ok:true,reason:'Combined/Higher Maths S ✓'}:{ok:false,reason:'Need S in Combined or Higher Mathematics'}}},
+{name:'Statistics & Operations Research',code:'073',intake:null,universities:'University of Peradeniya',
+ tags:['sci'],streams:['PS'],
+ check(g){const ok=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  return ok?{ok:true,reason:'Combined/Higher Maths S ✓'}:{ok:false,reason:'Need S in Combined or Higher Mathematics'}}},
+{name:'Physical Science — ICT',code:null,intake:null,universities:'Jayewardenepura · Kelaniya',
+ tags:['sci','comp'],streams:['PS'],
+ check(g){const hasMath=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  const hasSci=mg(g.chemistry,'S')||mg(g.physics,'S');
+  if(!hasMath||!hasSci)return{ok:false,reason:'Need S in Combined/Higher Maths + Chemistry or Physics'};
+  return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Artificial Intelligence',code:'117',intake:50,universities:'University of Moratuwa',
+ tags:['comp','eng','new'],streams:['PS'],
+ check(g){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C');
+  const list=['combined_maths','higher_maths','physics','chemistry','ict'].filter(s=>mg(g[s],'S'));
+  if(!hasC)return{ok:false,reason:'Need at least C in Combined Maths or Physics'};
+  if(list.length<2)return{ok:false,reason:`Need S in 2 subjects from list (have ${list.length})`};
+  return{ok:true,reason:'Meets all requirements ✓'}}},
+{name:'Electronics and Computer Science',code:'119',intake:80,universities:'University of Kelaniya',
+ tags:['eng','comp'],streams:['PS'],
+ check(g){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C');
+  const passPhys=mg(g.physics,'S'),passMath=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  const third=mg(g.chemistry,'S')||mg(g.ict,'S');
+  if(!hasC)return{ok:false,reason:'Need at least C in Combined Maths or Physics'};
+  if(!passPhys||!passMath)return{ok:false,reason:'Need to pass Physics AND Combined Maths'};
+  if(!third)return{ok:false,reason:'Need S in Chemistry or ICT as 3rd subject'};
+  return{ok:true,reason:'Meets all requirements ✓'}}},
+{name:'Data Science',code:'136',intake:65,universities:'Sabaragamuwa University of Sri Lanka',
+ tags:['comp'],streams:['PS'],
+ check(g,olEng){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C');
+  const list=['combined_maths','higher_maths','physics','chemistry','ict'].filter(s=>mg(g[s],'S'));
+  if(!hasC)return{ok:false,reason:'Need at least C in Combined Maths or Physics'};
+  if(list.length<2)return{ok:false,reason:`Need S in 2 subjects (have ${list.length})`};
+  if(olEng==='fail')return{ok:false,reason:'Need O/L English Credit Pass (C)'};
+  if(olEng==='pass'||olEng==='unknown')return{ok:'conditional',reason:'A/L subjects ✓ — need O/L English Credit (C)'};
+  return{ok:true,reason:'Meets all requirements ✓'}}},
+
+// ══════════════════════════════════════════════
+// (5) ENGINEERING TECHNOLOGY STREAM
+// ══════════════════════════════════════════════
+{name:'Engineering Technology (ET)',code:'102',intake:1331,universities:'Jayewardenepura · Kelaniya · Jaffna · Ruhuna · Rajarata · Uva Wellassa (Mech) · Wayamba · Colombo (Instrumentation) · Sabaragamuwa',
+ tags:['eng','ok'],streams:['ET'],
+ spec:'Mechanical, Electrical, Civil, Electronics, ICT (varies by university)',
+ check(g){const ok=mg(g.et,'S')&&mg(g.sft,'S')&&mg(g.et_third,'S');
+  return ok?{ok:true,reason:'S in ET, SFT and 3rd subject ✓'}:{ok:false,reason:'Need S in Engineering Technology (ET), Science for Technology (SFT) and a 3rd subject'}}},
+
+// ══════════════════════════════════════════════
+// (6) BIOSYSTEMS TECHNOLOGY STREAM
+// ══════════════════════════════════════════════
+{name:'Biosystems Technology (BST)',code:'103',intake:1320,universities:'Jayewardenepura · Jaffna · Eastern · Rajarata · SEUSL · Uva Wellassa · Wayamba · Colombo · Sabaragamuwa · Ruhuna · Kelaniya',
+ tags:['sci'],streams:['BST'],
+ check(g){const ok=mg(g.bst,'S')&&mg(g.sft,'S')&&mg(g.bst_third,'S');
+  return ok?{ok:true,reason:'S in BST, SFT and 3rd subject ✓'}:{ok:false,reason:'Need S in BST, Science for Technology (SFT) and a 3rd subject'}}},
+
+// ══════════════════════════════════════════════
+// (7) ICT STREAM
+// ══════════════════════════════════════════════
+{name:'Information Communication Technology (BICT)',code:'104',intake:1023,universities:'Jayewardenepura · Kelaniya · Vavuniya · Ruhuna · SEUSL · Rajarata · Colombo · Uva Wellassa · Eastern',
+ tags:['comp','ok'],streams:['ICT'],
+ check(g){const ok=mg(g.ict_al,'S')&&mg(g.sft,'S')&&mg(g.et_or_bst,'S');
+  return ok?{ok:true,reason:'S in ICT, SFT and ET/BST ✓'}:{ok:false,reason:'Need S in ICT, Science for Technology and ET or BST'}}},
+
+// ══════════════════════════════════════════════
+// (8) MULTI-STREAM COURSES (Section 2.2.8)
+// ══════════════════════════════════════════════
+{name:'Information Technology (IT)',code:'026',intake:251,universities:'University of Moratuwa',
+ tags:['comp','multi'],streams:['PS','BS','ET','BST','ICT','COM','ARTS'],
+ check(g){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C')||mg(g.combined_maths,'C');
+  const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  if(!hasC)return{ok:false,reason:'Need at least C in Combined/Higher Mathematics or Physics'};
+  if(anyPasses<1)return{ok:false,reason:'Need at least 2 more passes'};
+  return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Management and Information Technology (MIT)',code:'027',intake:119,universities:'University of Kelaniya',
+ tags:['comp','biz','multi'],streams:['PS','BS'],
+ check(g,olEng,olMaths){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C');
+  if(!hasC)return{ok:false,reason:'Need at least C in Combined/Higher Mathematics or Physics'};
+  if(olMaths==='fail')return{ok:false,reason:'Need O/L Mathematics B (Very Good)'};
+  if(olEng==='fail')return{ok:false,reason:'Need O/L English C (Credit)'};
+  if(olMaths==='unknown'||olEng==='unknown'||olMaths==='pass'||olEng==='pass')return{ok:'conditional',reason:'A/L subjects ✓ — verify O/L Maths B and O/L English C'};
+  return{ok:true,reason:'Meets all requirements ✓'}}},
+{name:'Quantity Surveying',code:'011',intake:152,universities:'University of Moratuwa',
+ tags:['eng','multi'],streams:['PS','BS','COM'],
+ check(g,olEng,olMaths){const hasMath=mg(g.combined_maths,'S')||mg(g.higher_maths,'S')||mg(g.physics,'S');
+  if(!hasMath)return{ok:false,reason:'Need S in Combined/Higher Mathematics or Physics'};
+  if(olMaths==='fail')return{ok:false,reason:'Need O/L Maths C and O/L English C'};
+  if(olEng==='fail')return{ok:false,reason:'Need O/L English C (Credit)'};
+  if(olMaths==='unknown'||olEng==='unknown')return{ok:'conditional',reason:'A/L subjects ✓ — verify O/L Maths C, O/L Science S, O/L English C'};
+  return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Surveying Science',code:null,intake:null,universities:'Sabaragamuwa University of Sri Lanka',
+ tags:['eng','multi'],streams:['PS','BS','COM'],
+ check(g){const hasMath=mg(g.combined_maths,'S')||mg(g.higher_maths,'S')||mg(g.physics,'S');
+  return hasMath?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Combined/Higher Mathematics or Physics'}}},
+{name:'Urban Informatics and Planning',code:null,intake:null,universities:'University of Moratuwa',
+ tags:['multi'],streams:['PS','BS','COM','ARTS'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:'conditional',reason:'Check specific requirements with UoM'}:{ok:false,reason:'Need A/L passes + O/L credits'}}},
+{name:'Architecture',code:'023',intake:100,universities:'University of Moratuwa',
+ tags:['eng','multi'],streams:['PS','BS','COM','ARTS'],
+ check(g,olEng,olMaths){const hasMathOrArt=mg(g.combined_maths,'S')||mg(g.higher_maths,'S')||mg(g.physics,'S')||mg(g.chemistry,'S')||mg(g.biology,'S');
+  if(!hasMathOrArt)return{ok:false,reason:'Need S in one of: Art/Higher Maths/Combined Maths/Geography/Chemistry/Biology/Physics'};
+  if(olEng==='fail')return{ok:false,reason:'Need O/L English S pass'};
+  return{ok:'conditional',reason:'Meets basic subject requirement — must also pass Aptitude Test (University of Moratuwa)'}},
+ note:'Aptitude test required'},
+{name:'Fashion Design & Product Development',code:null,intake:null,universities:'University of Moratuwa',
+ tags:['multi'],streams:['PS','BS','COM','ARTS'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:'conditional',reason:'Check specific requirements with UoM'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Landscape Architecture',code:null,intake:null,universities:'University of Moratuwa',
+ tags:['multi'],streams:['PS','BS','COM','ARTS'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:'conditional',reason:'Verify specific requirements with University of Moratuwa'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Design',code:null,intake:null,universities:'University of Moratuwa',
+ tags:['multi'],streams:['PS','BS','COM','ARTS'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:'conditional',reason:'Verify specific requirements with University of Moratuwa'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Law (LLB)',code:'025',intake:495,universities:'University of Colombo · University of Peradeniya · University of Jaffna',
+ tags:['multi'],streams:['PS','BS','COM','ARTS','ET','BST','ICT'],
+ check(g,olEng){const vals=Object.values(g).filter(v=>v!=='X').map(v=>GR[v]||0).sort((a,b)=>b-a);
+  if(vals.length<3)return{ok:false,reason:'Need results in 3 subjects'};
+  if(vals[0]<3||vals[1]<3||vals[2]<2)return{ok:false,reason:'Need 2 × C and 1 × S in 3 A/L subjects'};
+  if(olEng==='fail')return{ok:false,reason:'Need O/L English C (Credit)'};
+  if(olEng==='unknown')return{ok:'conditional',reason:'2C + 1S in A/L ✓ — verify O/L English C and Sinhala/Tamil C'};
+  return{ok:true,reason:'2C + 1S in A/L subjects + O/L English ✓'}}},
+{name:'Software Engineering',code:null,intake:null,universities:'Kelaniya · Sabaragamuwa · Jayewardenepura',
+ tags:['comp','multi'],streams:['PS','BS','ET','ICT'],
+ check(g){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C');
+  const list=['combined_maths','higher_maths','physics','chemistry','ict'].filter(s=>mg(g[s],'S'));
+  if(!hasC)return{ok:false,reason:'Need at least C in Combined Maths or Physics'};
+  if(list.length<2)return{ok:false,reason:'Need S in 2 subjects from approved list'};
+  return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Information and Communication Technology (ICT)',code:null,intake:null,universities:'Rajarata · Vavuniya',
+ tags:['comp','multi'],streams:['PS','BS','COM','ARTS','ET','BST','ICT'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to multiple streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Science and Technology',code:null,intake:null,universities:'Uva Wellassa University',
+ tags:['sci','multi'],streams:['PS','BS','ET','BST','ICT'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need A/L passes in Science/Technology subjects'}}},
+{name:'Computer Science & Technology',code:null,intake:null,universities:'Uva Wellassa University',
+ tags:['comp','multi'],streams:['PS','BS','ET','ICT'],
+ check(g){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C');
+  return hasC?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need at least C in Combined Maths or Physics'}}},
+{name:'Financial Engineering',code:null,intake:null,universities:'University of Kelaniya',
+ tags:['sci','biz','multi'],streams:['PS','COM'],
+ check(g){const hasMath=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  return hasMath?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Combined or Higher Mathematics'}}},
+{name:'Business Science',code:null,intake:null,universities:'University of Moratuwa',
+ tags:['biz','multi'],streams:['PS','BS','COM'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Financial Mathematics and Industrial Statistics',code:null,intake:null,universities:'University of Ruhuna',
+ tags:['sci','biz','multi'],streams:['PS','COM'],
+ check(g){const hasMath=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  return hasMath?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Combined or Higher Mathematics'}}},
+{name:'Geographical Information Science',code:null,intake:null,universities:'University of Peradeniya',
+ tags:['sci','multi'],streams:['PS','BS','COM','ARTS'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Physical Education',code:null,intake:null,universities:'Sabaragamuwa · Jaffna',
+ tags:['multi'],streams:['PS','BS','COM','ARTS','ET','BST','ICT'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to all streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Sports Science & Management',code:null,intake:null,universities:'Jayewardenepura · Sabaragamuwa',
+ tags:['multi'],streams:['PS','BS','COM','ARTS','ET','BST','ICT'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to all streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Tourism & Hospitality Management',code:null,intake:null,universities:'Rajarata · Sabaragamuwa',
+ tags:['biz','multi'],streams:['PS','BS','COM','ARTS','ET','BST','ICT'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to multiple streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Information Technology & Management',code:null,intake:null,universities:'University of Moratuwa',
+ tags:['comp','biz','multi'],streams:['PS','BS','COM'],
+ check(g){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C');
+  return hasC?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need C in Combined Maths or Physics'}}},
+{name:'Information Systems',code:null,intake:null,universities:'UCSC · Jayewardenepura · Sabaragamuwa',
+ tags:['comp','multi'],streams:['PS','BS','COM'],
+ check(g){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C');
+  return hasC?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need C in Combined Maths or Physics'}}},
+{name:'Food Business Management',code:null,intake:null,universities:'Sabaragamuwa University',
+ tags:['biz','multi'],streams:['BS','COM'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Marine and Freshwater Sciences',code:null,intake:null,universities:'University of Ruhuna',
+ tags:['sci','multi'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')&&mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Biology and Chemistry'}}},
+{name:'Mineral Resources and Technology',code:null,intake:null,universities:'Uva Wellassa University',
+ tags:['sci','multi'],streams:['PS','BS','ET'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need A/L passes in Science/Technology'}}},
+{name:'Polymer Science and Industrial Management',code:null,intake:null,universities:'University of Sri Jayewardenepura',
+ tags:['sci','multi'],streams:['PS','BS'],
+ check(g){const ok=mg(g.chemistry,'S')&&(mg(g.physics,'S')||mg(g.biology,'S'));
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Chemistry + Physics or Biology'}}},
+{name:'Geographical Information Systems',code:null,intake:null,universities:'University of Ruhuna',
+ tags:['sci','multi'],streams:['PS','BS','COM','ARTS'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to multiple streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Plantation Management and Technology',code:null,intake:null,universities:'Uva Wellassa University',
+ tags:['sci','multi'],streams:['BS'],
+ check(g){const ok=mg(g.biology,'S')||mg(g.chemistry,'S');
+  return ok?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need S in Bio/Chem subjects'}}},
+{name:'Creative Music Technology and Production',code:null,intake:null,universities:'University of Sri Jayewardenepura',
+ tags:['arts','multi'],streams:['PS','BS','COM','ARTS','ET','BST','ICT'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to all streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Film & Television Studies',code:null,intake:null,universities:'University of Kelaniya',
+ tags:['arts','multi'],streams:['PS','BS','COM','ARTS','ET','BST'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to multiple streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Project Management',code:null,intake:null,universities:'University of Vavuniya',
+ tags:['biz','multi'],streams:['PS','BS','COM','ARTS','ET','BST','ICT'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to multiple streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Translation Studies',code:null,intake:null,universities:'Kelaniya · Jaffna · Sabaragamuwa · Eastern',
+ tags:['arts','multi'],streams:['PS','BS','COM','ARTS'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to multiple streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'English Language & Applied Linguistics',code:null,intake:null,universities:'Uva Wellassa University',
+ tags:['arts','multi'],streams:['PS','BS','COM','ARTS','ET','BST'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to multiple streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Primary Education',code:null,intake:null,universities:'University of Colombo',
+ tags:['multi'],streams:['PS','BS','COM','ARTS','ET','BST','ICT'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to all streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Human Resource Development',code:null,intake:null,universities:'Uva Wellassa University',
+ tags:['biz','multi'],streams:['PS','BS','COM','ARTS','ET','BST','ICT'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to multiple streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Financial Economics',code:null,intake:null,universities:'University of Sri Jayewardenepura',
+ tags:['biz','multi'],streams:['PS','COM'],
+ check(g){const hasMath=mg(g.combined_maths,'S')||mg(g.higher_maths,'S');
+  const hasEcon=mg(g.economics,'S');
+  if(!hasMath&&!hasEcon)return{ok:false,reason:'Need S in Mathematics or Economics'};
+  return{ok:true,reason:'Meets requirement ✓'}}},
+{name:'Management and Information Technology — SEUSL',code:null,intake:null,universities:'South Eastern University of Sri Lanka',
+ tags:['comp','biz','multi'],streams:['PS','BS','COM'],
+ check(g){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C');
+  return hasC?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need C in Combined Maths or Physics'}}},
+{name:'Industrial Information Technology',code:null,intake:null,universities:'Uva Wellassa University',
+ tags:['comp','multi'],streams:['PS','BS','ET','ICT'],
+ check(g){const hasC=mg(g.combined_maths,'C')||mg(g.higher_maths,'C')||mg(g.physics,'C');
+  return hasC?{ok:true,reason:'Meets requirement ✓'}:{ok:false,reason:'Need C in Combined Maths or Physics'}}},
+{name:'Entrepreneurship and Management',code:null,intake:null,universities:'Uva Wellassa University',
+ tags:['biz','multi'],streams:['PS','BS','COM','ARTS','ET','BST','ICT'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to all streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+{name:'Sports Science',code:null,intake:null,universities:'University of Kelaniya',
+ tags:['multi'],streams:['PS','BS','COM','ARTS','ET','BST','ICT'],
+ check(g){const anyPasses=Object.values(g).filter(v=>mg(v,'S')).length;
+  return anyPasses>=2?{ok:true,reason:'Open to all streams ✓'}:{ok:false,reason:'Need A/L passes'}}},
+];
+
+// ── MAIN CHECK ──
+function checkEligibility(){
+  const grades={};
+  // collect all possible grades
+  const allSubs=['physics','chemistry','combined_maths','higher_maths','ict','biology','agri_science',
+    'business_studies','economics','accounting','business_statistics',
+    'arts_s1','arts_s2','arts_s3','et','sft','et_third','bst','bst_third','ict_al','et_or_bst'];
+  allSubs.forEach(s=>{const e=document.getElementById('grade_'+s);if(e)grades[s]=e.value;else grades[s]='X';});
+  const olEng=document.getElementById('olEnglish').value;
+  const olMaths=document.getElementById('olMaths').value;
+  const cgt=document.getElementById('cgtResult').value;
+  const stream=currentStream;
+
+  const relevant=COURSES.filter(c=>c.streams.includes(stream));
+  const eligible=[],conditional=[],ineligible=[];
+  relevant.forEach(course=>{
+    const r=course.check(grades,olEng,olMaths);
+    if(r.ok===true)eligible.push({course,reason:r.reason});
+    else if(r.ok==='conditional')conditional.push({course,reason:r.reason});
+    else ineligible.push({course,reason:r.reason});
+  });
+
+  const res=document.getElementById('results');
+  res.classList.add('visible');
+  setTimeout(()=>res.scrollIntoView({behavior:'smooth',block:'start'}),50);
+
+  document.getElementById('cgtWarning').classList.toggle('visible',cgt==='absent'||cgt==='fail');
+  document.getElementById('resultsSummary').innerHTML=
+    `<span class="rs-badge rs-eligible">✅ ${eligible.length} Eligible</span>`+
+    (conditional.length?`<span class="rs-badge rs-check">⚠️ ${conditional.length} Conditional</span>`:'')+
+    `<span class="rs-badge rs-ineligible">❌ ${ineligible.length} Not eligible</span>`;
+
+  if(!eligible.length&&!conditional.length){
+    document.getElementById('coursesOutput').innerHTML=`<div class="no-eligible"><div class="no-icon">📋</div><p>No courses meet the entered requirements. Please review your grades and try again.</p></div>`;return;
+  }
+
+  // Group by tag category
+  const cats=[
+    {key:'eng',icon:'⚙️',label:'Engineering & Technology',items:eligible.filter(e=>e.course.tags.includes('eng'))},
+    {key:'comp',icon:'💻',label:'Computing & Information Technology',items:eligible.filter(e=>e.course.tags.includes('comp')&&!e.course.tags.includes('eng'))},
+    {key:'sci',icon:'🔬',label:'Science & Applied Sciences',items:eligible.filter(e=>e.course.tags.includes('sci')&&!e.course.tags.includes('comp')&&!e.course.tags.includes('eng'))},
+    {key:'med',icon:'🏥',label:'Medicine & Health Sciences',items:eligible.filter(e=>e.course.tags.includes('med'))},
+    {key:'biz',icon:'💼',label:'Business & Management',items:eligible.filter(e=>e.course.tags.includes('biz')&&!e.course.tags.includes('sci')&&!e.course.tags.includes('comp'))},
+    {key:'arts',icon:'🎨',label:'Arts & Humanities',items:eligible.filter(e=>e.course.tags.includes('arts'))},
+    {key:'multi',icon:'🌐',label:'Multi-Stream Courses',items:eligible.filter(e=>e.course.tags.includes('multi')&&!e.course.tags.includes('comp')&&!e.course.tags.includes('biz')&&!e.course.tags.includes('sci')&&!e.course.tags.includes('eng'))},
+  ].filter(c=>c.items.length>0);
+
+  let html='';
+  cats.forEach(cat=>{
+    html+=`<div class="course-category"><div class="cat-header"><span class="cat-icon">${cat.icon}</span><span class="cat-name">${cat.label}</span><span class="cat-line"></span></div><div class="courses-list">`;
+    html+=cat.items.map(e=>renderCard(e.course,'eligible',e.reason)).join('');
+    html+='</div></div>';
+  });
+  if(conditional.length){
+    html+=`<div class="course-category"><div class="cat-header"><span class="cat-icon">⚠️</span><span class="cat-name">Conditional (verify extra requirements)</span><span class="cat-line"></span></div><div class="courses-list">`;
+    html+=conditional.map(e=>renderCard(e.course,'conditional',e.reason)).join('');
+    html+='</div></div>';
+  }
+  if(ineligible.length){
+    html+=`<div class="course-category"><div class="cat-header"><span class="cat-icon">❌</span><span class="cat-name">Not Currently Eligible (${ineligible.length})</span><span class="cat-line"></span></div><div class="courses-list">`;
+    html+=ineligible.slice(0,30).map(e=>renderCard(e.course,'ineligible',e.reason)).join('');
+    if(ineligible.length>30)html+=`<div style="padding:10px;text-align:center;font-size:12px;color:var(--muted);">… and ${ineligible.length-30} more not shown</div>`;
+    html+='</div></div>';
+  }
+  document.getElementById('coursesOutput').innerHTML=html;
+}
+
+function renderCard(course,status,reason){
+  const slabel={eligible:'✅ Eligible',conditional:'⚠️ Conditional',ineligible:'❌ Not Eligible'};
+  const scls={eligible:'sp-eligible',conditional:'sp-conditional',ineligible:'sp-ineligible'};
+  const rcls=status==='ineligible'?'fail-reason':status==='conditional'?'warn-reason':'';
+  const tagMap={eng:'tag-eng',comp:'tag-comp',sci:'tag-sci',med:'tag-med',biz:'tag-biz',new:'tag-new',hot:'tag-hot',ok:'tag-ok',arts:'tag-arts',multi:'tag-multi'};
+  const tagLabel={eng:'⚙️ Engineering',comp:'💻 Computing',sci:'🔬 Science',med:'🏥 Health',biz:'💼 Business',new:'🆕 New',hot:'🔥 Competitive',ok:'✅ Accessible',arts:'🎨 Arts',multi:'🌐 Multi-stream'};
+  const tagHtml=course.tags.map(t=>tagMap[t]?`<span class="tag ${tagMap[t]}">${tagLabel[t]}</span>`:'').filter(Boolean).join('');
+  const intake=course.intake?`<span class="intake-badge">Intake: ${course.intake.toLocaleString()}</span>`:'';
+  const code=course.code?`Code: ${course.code} `:' ';
+  return `<div class="course-card ${status}">
+    <div>
+      <div class="cc-name">${course.name}${course.note?` <span style="font-size:11px;color:var(--gold);font-weight:400;"> — ${course.note}</span>`:''}</div>
+      <div class="cc-code">${code}${intake}</div>
+      <div class="cc-uni">🏛 ${course.universities}</div>
+      ${course.spec?`<div class="cc-spec">Specializations: ${course.spec}</div>`:''}
+      <div class="cc-tags">${tagHtml}</div>
+    </div>
+    <div class="cc-status">
+      <div class="status-pill ${scls[status]}">${slabel[status]}</div>
+      <div class="cc-req ${rcls}">${reason}</div>
+    </div>
+  </div>`;
+}
+
+renderSubjects();
+</script>
+</body>
+</html>
